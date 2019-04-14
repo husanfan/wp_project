@@ -1,3 +1,6 @@
 div {
-    background: orange;
+    width: 50%;
+    margin: 0 auto;
+    /* background-image: url("../assets/images/timg.jpg"); */
+    text-align: center;
 }

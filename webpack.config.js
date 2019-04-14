@@ -1,9 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+    print: './src/print.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name]_bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -18,7 +21,32 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          'file-loader'
+          'file-loader',
+          // 项目图片压缩
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          },
         ]
       },
       {
@@ -38,6 +66,13 @@ module.exports = {
         use: [
           'xml-loader'
         ]
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          // 这个加载器可以配置标签属性,新增修改等,通过传递参数attrs=tag:attribute进行处理
+          loader: 'html-loader'
+        }
       }
     ]
   }
