@@ -1,12 +1,19 @@
 import _lodash from 'lodash';
 import './css/index.css';
 import myImgFile from './assets/images/timg.jpg';
-import print from './print';
-import list from './js/list';
+
+function getComponent(ele) {
+    // 异步加载js
+    return import(/* webpackChunkName: "list" */ './js/list').then(rst => {
+        const listEle= document.createElement('div');
+        listEle.innerHTML= rst.default();
+        ele.appendChild(listEle);
+    }).catch(error => 'An error occurred while loading the component');
+}
 
 function component() {
-    var element = document.createElement('div');
-    var btn = document.createElement('button');
+    const element = document.createElement('div');
+    const btn = document.createElement('button');
 
     // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
     // element.innerHTML = _.join(['Hello', 'webpack'], ' ');
@@ -16,10 +23,10 @@ function component() {
     element.appendChild(myImg);
 
     btn.innerHTML = '点我啊';
-    btn.onclick = print;
+    btn.onclick = function() {
+        getComponent(element);
+    };
     element.appendChild(btn);
-
-    console.log(list());
 
     return element;
 }
