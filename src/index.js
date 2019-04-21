@@ -2,6 +2,7 @@ import _lodash from 'lodash';
 import './css/index.css';
 import myImgFile from './assets/images/timg.jpg';
 import print from './print';
+import list from './js/list';
 
 function component() {
     var element = document.createElement('div');
@@ -17,6 +18,8 @@ function component() {
     btn.innerHTML = '点我啊';
     btn.onclick = print;
     element.appendChild(btn);
+
+    console.log(list());
 
     return element;
 }
