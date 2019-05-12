@@ -11,21 +11,6 @@ module.exports = {
     filename: '[name]_bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-      maxSize: 80000,
-      cacheGroups: {
-        vendor: {
-          // 抽取第三方依赖
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "all",
-          minSize: 20000
-        },
-      }
-    }
-  },
   module: {
     rules: [
       {
